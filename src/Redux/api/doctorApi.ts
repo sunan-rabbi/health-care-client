@@ -3,6 +3,7 @@ import { baseApi } from "./baseApi";
 import { IDoctor, Tmeta } from "@/type";
 
 const doctorApi = baseApi.injectEndpoints({
+
     endpoints: (build) => ({
         createDoctor: build.mutation({
             query: (data) => ({
@@ -27,14 +28,32 @@ const doctorApi = baseApi.injectEndpoints({
             },
             providesTags: [tagTypes.doctor]
         }),
+
+        getDoctor: build.query({
+            query: (id: string) => ({
+                url: `/doctor/${id}`,
+                method: 'GET',
+            }),
+        }),
+
         deleteDoctor: build.mutation({
             query: (id) => ({
                 url: `/user/soft/${id}`,
                 method: 'DELETE'
+            }),
+
+            invalidatesTags: [tagTypes.doctor]
+        }),
+
+        updateDoctor: build.mutation({
+            query: ({ id, data }: { id: string, data: Partial<IDoctor> }) => ({
+                url: `/doctor/${id}`,
+                method: 'PATCH',
+                data
             }),
             invalidatesTags: [tagTypes.doctor]
         }),
     })
 })
 
-export const { useCreateDoctorMutation, useGetAllDoctorQuery, useDeleteDoctorMutation } = doctorApi
+export const { useCreateDoctorMutation, useGetAllDoctorQuery, useDeleteDoctorMutation, useGetDoctorQuery, useUpdateDoctorMutation } = doctorApi
