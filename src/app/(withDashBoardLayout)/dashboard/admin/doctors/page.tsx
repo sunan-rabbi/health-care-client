@@ -4,7 +4,6 @@ import { useState } from "react";
 import DoctorModal from "./component/doctorModal";
 import { useDeleteDoctorMutation, useGetAllDoctorQuery } from "@/Redux/api/doctorApi";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Image from "next/image";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDebounced } from "@/hook/useDebounce";
 import { toast } from "sonner";
