@@ -28,7 +28,7 @@ const scheduleApi = baseApi.injectEndpoints({
             },
             providesTags: [tagTypes.schedule]
         }),
-        deleteSpeciality: build.mutation({
+        deleteSchedule: build.mutation({
             query: (id) => ({
                 url: `/schedule/${id}`,
                 method: 'DELETE'
@@ -37,3 +37,5 @@ const scheduleApi = baseApi.injectEndpoints({
         }),
     })
 })
+
+export const { useCreateScheduleMutation, useGetAllScheduleQuery, useDeleteScheduleMutation } = scheduleApi

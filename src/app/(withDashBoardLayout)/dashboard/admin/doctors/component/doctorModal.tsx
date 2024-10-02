@@ -1,4 +1,4 @@
-import { useCreateDoctorMutation } from "@/Redux/api/Doctor/doctorApi";
+import { useCreateDoctorMutation } from "@/Redux/api/doctorApi";
 import ReUseForm from "@/components/Shared/Form/ReForm";
 import ReUseInput from "@/components/Shared/Form/ReInput";
 import ReUseSelect from "@/components/Shared/Form/ReSelect";

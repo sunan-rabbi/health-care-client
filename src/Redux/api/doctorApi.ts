@@ -1,5 +1,5 @@
 import { tagTypes } from "@/Redux/tag-type";
-import { baseApi } from "../baseApi";
+import { baseApi } from "./baseApi";
 import { IDoctor, Tmeta } from "@/type";
 
 const doctorApi = baseApi.injectEndpoints({
