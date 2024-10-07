@@ -10,6 +10,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import SidebarItem from '../SidebarItem/SidebarItem';
+import { useGetMyProfileQuery } from '@/Redux/api/userApi';
+import { Avatar, Badge, Stack } from '@mui/material';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AccountMenu from '../AccountMenu/AccountMenu';
 
 const drawerWidth = 240;
 
@@ -18,6 +22,10 @@ export default function DashboardDrawer({ children }: { children: React.ReactNod
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isClosing, setIsClosing] = React.useState(false);
+    const { isFetching, isLoading, data } = useGetMyProfileQuery({})
+
+    console.log(data);
+
 
     const handleDrawerClose = () => {
         setIsClosing(true);
@@ -55,15 +63,33 @@ export default function DashboardDrawer({ children }: { children: React.ReactNod
                         onClick={handleDrawerToggle}
                         sx={{ mr: 2, display: { sm: 'none' }, color: 'primary.main' }}
                     >
-                        <MenuIcon />
+                        <MenuIcon sx={{ color: 'primary.main' }} />
                     </IconButton>
-                    <Box>
-                        <Typography variant='body2' noWrap component='div' color='gray'>
-                            Hi, Sunan Rabbi
-                        </Typography>
-                        <Typography variant='body2' noWrap component='div' color='primary.main'>
-                            Welcome To, Health Care !
-                        </Typography>
+                    <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%'
+                    }}>
+                        <Box>
+                            <Typography variant='body2' noWrap component='div' color='gray'>
+                                {
+                                    (isFetching || isLoading) ? 'Loading...' : `Hi, ${data?.name}`
+                                }
+                            </Typography>
+                            <Typography variant='body2' noWrap component='div' color='primary.main'>
+                                Welcome To, Health Care !
+                            </Typography>
+                        </Box>
+                        <Stack direction="row" gap={3}>
+                            <Badge badgeContent={1} color="primary">
+                                <IconButton sx={{ background: '#ffffff' }}>
+                                    <NotificationsIcon color="action" />
+                                </IconButton>
+                            </Badge>
+                            <Avatar alt={data?.name} src={data?.profilePhoto} />
+                            <AccountMenu />
+                        </Stack>
                     </Box>
                 </Toolbar>
             </AppBar>
