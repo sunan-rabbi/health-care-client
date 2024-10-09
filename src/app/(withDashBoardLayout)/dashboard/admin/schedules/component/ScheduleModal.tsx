@@ -30,6 +30,7 @@ const ScheduleModal = ({ open, setOpen }: IProps) => {
             };
 
             const res = await createSchedule(formattedData)
+            console.log(res);
 
             if (res?.data?.length > 0) {
                 toast.success('Schedule is Created Successfully!!!', { id })

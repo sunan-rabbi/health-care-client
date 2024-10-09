@@ -74,7 +74,7 @@ const AccountMenu = () => {
                     Profile
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleClose} sx={{ color: 'red' }}>
+                <MenuItem onClick={handleLogOut} sx={{ color: 'red' }}>
                     Logout
                 </MenuItem>
             </Menu>

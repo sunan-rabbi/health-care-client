@@ -12,7 +12,7 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import MedicationIcon from '@mui/icons-material/Medication';
 import PaymentIcon from '@mui/icons-material/Payment';
 
-export const drawerItems = (role: UserRole) => {
+export const drawerItems = (role: UserRole | '') => {
     const roleMenu: DrawerItem[] = [];
 
     switch (role) {
@@ -104,6 +104,13 @@ export const drawerItems = (role: UserRole) => {
             );
             break;
         default:
+            roleMenu.push(
+                {
+                    title: "Dashboard",
+                    path: `/dashboard`,
+                    icon: DashboardIcon
+                }
+            );
             break;
     }
     return [...roleMenu]

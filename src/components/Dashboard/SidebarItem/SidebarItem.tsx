@@ -9,13 +9,22 @@ import SidebarListItem from './Sidebar';
 import { useEffect, useState } from 'react';
 import { getUserInfo } from '@/Service/actions/authservice';
 
-
 const SidebarItem = () => {
-    const [userRole, setUserRole] = useState('')
+    const [userRole, setUserRole] = useState<UserRole | ''>('');  // State for user role
+
     useEffect(() => {
-        const { role } = getUserInfo() as any
-        setUserRole(role)
-    }, [])
+        const userInfo = getUserInfo();  // Retrieve user info
+
+        if (userInfo && userInfo.role) {  // Check if role exists
+            setUserRole(userInfo.role);
+        } else {
+            console.error("No valid user info or role found.");
+            setUserRole('');  // Set to empty string or a default role if needed
+        }
+    }, []);
+
+    const roleMenuItems = drawerItems(userRole as UserRole);  // Pass userRole to drawerItems function
+
     return (
         <Box>
             <Stack
@@ -36,7 +45,7 @@ const SidebarItem = () => {
                 </Typography>
             </Stack>
             <List>
-                {drawerItems(userRole as UserRole).map((item, index) => (
+                {roleMenuItems.map((item, index) => (
                     <SidebarListItem key={index} item={item} />
                 ))}
             </List>

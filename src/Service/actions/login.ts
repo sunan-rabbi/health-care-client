@@ -7,7 +7,7 @@ export const login = async (data: FieldValues) => {
         headers: {
             "Content-Type": "application/json"
         },
-        cache: 'no-store'
+        credentials: "include"
     })
     const res = await fetchData.json()
     return res;

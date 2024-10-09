@@ -1,5 +1,6 @@
+import { getNewAccessToken } from "@/Service/actions/authservice";
 import { ResponseSuccessType } from "@/type";
-import { getTokenFromLocal } from "@/utils/FormData/localStorage";
+import { getTokenFromLocal, setTokenInLocal } from "@/utils/FormData/localStorage";
 import axios from "axios";
 
 const instance = axios.create();
@@ -29,14 +30,26 @@ instance.interceptors.response.use(
             meta: response?.data?.meta
         }
         return responseObject;
-    }, function (error) {
+    }, async function (error) {
 
-        const responseObject = {
-            statusCode: error?.response?.data?.statusCode || 500,
-            message: error?.response?.data?.message || "Something went wrong!!!",
-            errorMessage: error?.response?.data?.message
+        const config = error.config;
+        if (error?.response?.status === 500 && !(config?.sent)) {
+            config.sent = true;
+            const response = await getNewAccessToken() as any
+            const accessToken = response?.data?.accessToken
+            config.headers['Authorization'] = accessToken
+            setTokenInLocal('accessToken', accessToken)
+            return instance(config)
+        } else {
+            const responseObject = {
+                statusCode: error?.response?.data?.statusCode || 500,
+                message: error?.response?.data?.message || "Something went wrong!!!",
+                errorMessage: error?.response?.data?.message
+            }
+            return responseObject;
         }
-        return responseObject;
+
+
     })
 
 export { instance }

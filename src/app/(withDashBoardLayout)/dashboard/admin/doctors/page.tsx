@@ -9,6 +9,7 @@ import { useDebounced } from "@/hook/useDebounce";
 import { toast } from "sonner";
 import EditIcon from '@mui/icons-material/Edit';
 import DoctorUpdate from "./component/doctorUpdate";
+import Link from "next/link";
 
 const doctorsPage = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -61,9 +62,11 @@ const doctorsPage = () => {
                         <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
                             <DeleteIcon sx={{ color: 'red' }} />
                         </IconButton>
-                        <IconButton onClick={() => handleClick(row.id)} aria-label="edit">
-                            <EditIcon />
-                        </IconButton>
+                        <Link href={`/dashboard/admin/doctors/edit/${row.id}`}>
+                            <IconButton aria-label="edit">
+                                <EditIcon />
+                            </IconButton>
+                        </Link>
                     </Box>
                 );
             }
