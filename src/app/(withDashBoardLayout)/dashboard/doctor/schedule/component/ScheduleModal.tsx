@@ -12,9 +12,9 @@ import { useGetAllScheduleQuery } from "@/Redux/api/scheduleApi";
 import { ISchedules } from "@/type";
 import utc from 'dayjs/plugin/utc';
 import { Button, Grid } from "@mui/material";
-import ReUseSelect from "@/components/Shared/Form/ReSelect";
 import MultipleSelectChip from "./MultipleSelect";
-import LoadingButton from '@mui/lab/LoadingButton';
+import { useCreateDoctorScheduleMutation } from "@/Redux/api/doctorScheduleApi";
+
 
 
 dayjs.extend(utc);
@@ -27,6 +27,7 @@ type IModal = {
 const DoctorScheduleModal = ({ open, setOpen }: IModal) => {
     const [selectedDate, setSelectedDate] = useState(dayjs(new Date()).toISOString());
     const [selectedSchedules, setSelectedSchedules] = useState<string[]>([]);
+    const [createDoctorSchedule] = useCreateDoctorScheduleMutation()
 
     const query: Record<string, any> = {};
 
@@ -44,7 +45,14 @@ const DoctorScheduleModal = ({ open, setOpen }: IModal) => {
     const handleSubmit = async (value: FieldValues) => {
         try {
 
-            console.log("Submitted values:", value);
+            const data = {
+                scheduleIds: [...selectedSchedules]
+            }
+            const res = await createDoctorSchedule(data)
+
+            if (res) {
+                toast.success('Doctor Schedules are created successfully!!!')
+            }
 
             setOpen(false);
         } catch (error) {
@@ -64,15 +72,9 @@ const DoctorScheduleModal = ({ open, setOpen }: IModal) => {
                 />
             </LocalizationProvider>
             <MultipleSelectChip schedules={schedules} selectedSchedules={selectedSchedules} setSelectedSchedules={setSelectedSchedules} />
-            <LoadingButton
-                size='small'
-                onClick={handleSubmit}
-                loading={true}
-                loadingIndicator='submitting...'
-                variant="contained"
-            >
-                <span>Fetch Data</span>
-            </LoadingButton>
+            <Button onClick={handleSubmit}>
+                Fetch Data
+            </Button>
         </ReModal>
     );
 };
