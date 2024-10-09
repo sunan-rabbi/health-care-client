@@ -24,9 +24,6 @@ export default function DashboardDrawer({ children }: { children: React.ReactNod
     const [isClosing, setIsClosing] = React.useState(false);
     const { isFetching, isLoading, data } = useGetMyProfileQuery({})
 
-    console.log(data);
-
-
     const handleDrawerClose = () => {
         setIsClosing(true);
         setMobileOpen(false);
