@@ -26,6 +26,7 @@ const doctorSchema = z.object({
     address: z.string().min(1, { message: 'Address cannot be empty' }).optional(),
     registrationNumber: z.string().min(1, { message: 'Registration number cannot be empty' }).optional(),
     experience: z.number().optional(),
+    gender: z.enum(['MALE', 'FEMALE', 'OTHER'], { message: 'Invalid gender value' }).optional(),
     apointmentFee: z.number().optional(),
     qualification: z.string().min(1, { message: 'Qualification cannot be empty' }).optional(),
     currentWorkingPlace: z.string().min(1, { message: 'Current working place cannot be empty' }).optional(),
@@ -74,9 +75,12 @@ const DoctorInfoFullModal = ({ open, setOpen, id }: IModalProps) => {
             ...value,
             specialties: convertedSpeciality
         }
+        console.log(modifyValue);
+
 
         try {
             const res = await updateDoctor({ id: id, data: modifyValue }).unwrap();
+            console.log(res);
 
             if (res?.id) {
                 toast.success('Doctor Updated Successfully!!!');
