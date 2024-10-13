@@ -34,4 +34,7 @@ export interface IDoctor {
     averageRating: number;
     review: Review[] | [];
     doctorSpecialties: DoctorSpecialty[] | [];
+    role: String;
+    needPasswordChange: boolean,
+    status: string;
 }

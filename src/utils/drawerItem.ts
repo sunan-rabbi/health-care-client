@@ -11,6 +11,7 @@ import EventIcon from '@mui/icons-material/Event';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import MedicationIcon from '@mui/icons-material/Medication';
 import PaymentIcon from '@mui/icons-material/Payment';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 export const drawerItems = (role: UserRole | '') => {
     const roleMenu: DrawerItem[] = [];
@@ -75,6 +76,11 @@ export const drawerItems = (role: UserRole | '') => {
                     title: "Schedule",
                     path: `${role}/schedule`,
                     icon: CalendarMonthIcon
+                },
+                {
+                    title: "Profile",
+                    path: `${role}/profile`,
+                    icon: AccountBoxIcon
                 },
                 {
                     title: "Appointments",
