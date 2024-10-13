@@ -46,7 +46,7 @@ const doctorApi = baseApi.injectEndpoints({
         }),
 
         updateDoctor: build.mutation({
-            query: ({ id, data }: { id: string, data: Partial<IDoctor> }) => ({
+            query: ({ id, data }: { id: string, data: any }) => ({
                 url: `/doctor/${id}`,
                 method: 'PATCH',
                 data
