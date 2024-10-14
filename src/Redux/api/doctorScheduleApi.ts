@@ -14,12 +14,19 @@ const doctorScheduleApi = baseApi.injectEndpoints({
             invalidatesTags: [tagTypes.doctorSchedule]
         }),
         getMyDoctorSchedule: build.query({
-            query: (data) => ({
+            query: (arg: Record<string, any>) => ({
                 url: '/doctor-schedule/my-schedules',
-                data
+                params: arg
             }),
+            transformResponse: (response: [], meta: Tmeta) => {
+                return {
+                    data: response,
+                    meta
+                }
+            },
             providesTags: [tagTypes.doctorSchedule]
         }),
+
         deleteDoctorSchedule: build.mutation({
             query: (id) => ({
                 url: `/doctor-schedule/${id}`,
