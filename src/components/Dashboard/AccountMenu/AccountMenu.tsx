@@ -4,8 +4,8 @@ import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { IconButton } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import { removeAccessToken } from '@/Service/actions/authservice';
 import { useRouter } from 'next/navigation';
+import logoutUser from '@/Service/actions/logOut';
 
 const AccountMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -21,8 +21,7 @@ const AccountMenu = () => {
     };
     const handleLogOut = () => {
         setAnchorEl(null);
-        removeAccessToken();
-        router.push('/login')
+        logoutUser(router)
     };
 
     return (
