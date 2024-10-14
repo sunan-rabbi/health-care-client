@@ -10,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -39,7 +38,7 @@ const defaultValues = {
 }
 
 const RegisterPage = () => {
-    const router = useRouter()
+
     const [error, setError] = useState('')
 
     const onSubmit = async (data: FieldValues) => {
@@ -55,15 +54,11 @@ const RegisterPage = () => {
             }
 
             if (response.success) {
-                toast.success(response.message, { id: loadingId })
                 const userInfo = await login({ email: data.patient.email, password: data.password });
-
+                toast.success(response.message, { id: loadingId })
+                saveAccessToken({ accessToken: response?.data?.accessToken })
                 if (userInfo.success === false) {
                     throw new Error(userInfo)
-                }
-                if (userInfo.success) {
-                    saveAccessToken({ accessToken: userInfo.data.accessToken })
-                    router.push('/dashboard')
                 }
             }
             else {

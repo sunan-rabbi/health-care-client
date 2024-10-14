@@ -1,11 +1,9 @@
 "use client"
-import { saveAccessToken } from "@/Service/actions/authservice";
 import { login } from "@/Service/actions/login";
 import assets from "@/assets";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import ReUseForm from "@/components/Shared/Form/ReForm";
@@ -13,6 +11,7 @@ import ReUseInput from "@/components/Shared/Form/ReInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { saveAccessToken } from "@/Service/actions/authservice";
 
 const loginValidationSchema = z.object({
     email: z.string().email('Please Provide a Valid Email Address'),
@@ -25,7 +24,7 @@ const defaultValues = {
 }
 
 const LoginPage = () => {
-    const router = useRouter()
+
     const [error, setError] = useState('')
     const handleLogin = async (data: FieldValues) => {
 
@@ -35,8 +34,7 @@ const LoginPage = () => {
 
             if (response.success) {
                 toast.success(response.message, { id: loadingId })
-                saveAccessToken({ accessToken: response.data.accessToken })
-                router.push('/dashboard')
+                saveAccessToken({ accessToken: response?.data?.accessToken })
             }
             else {
                 setError(response.message)

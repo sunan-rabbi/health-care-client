@@ -20,7 +20,7 @@ const DoctorSchedule = () => {
     const query: Record<string, any> = {}
 
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(2);
+    const [limit, setLimit] = useState(5);
 
     query['page'] = page;
     query['limit'] = limit;

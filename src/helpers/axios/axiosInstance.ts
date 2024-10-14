@@ -1,6 +1,7 @@
-import { getNewAccessToken } from "@/Service/actions/authservice";
+import { getNewAccessToken, saveAccessToken } from "@/Service/actions/authservice";
+import setAccessToken from "@/Service/actions/setAccessToken";
 import { ResponseSuccessType } from "@/type";
-import { getTokenFromLocal, setTokenInLocal } from "@/utils/FormData/localStorage";
+import { getTokenFromLocal } from "@/utils/FormData/localStorage";
 import axios from "axios";
 
 const instance = axios.create();
@@ -38,7 +39,8 @@ instance.interceptors.response.use(
             const response = await getNewAccessToken() as any
             const accessToken = response?.data?.accessToken
             config.headers['Authorization'] = accessToken
-            setTokenInLocal('accessToken', accessToken)
+            saveAccessToken({ accessToken: response?.data?.accessToken })
+            setAccessToken('accessToken')
             return instance(config)
         } else {
             const responseObject = {
