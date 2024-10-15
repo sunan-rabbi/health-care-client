@@ -14,6 +14,7 @@ const privateRoutes = {
 
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
+    console.log({ pathname, flag: '=========================================================================' });
 
     // Retrieve the access token from cookies
     const accessToken = cookies().get('accessToken')?.value;

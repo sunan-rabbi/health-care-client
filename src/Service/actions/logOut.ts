@@ -5,7 +5,7 @@ import removeTokenFromCookies from "./removeAccessToken";
 const logoutUser = (router: AppRouterInstance) => {
     removeAccessToken();
     removeTokenFromCookies(['accessToken', 'refreshToken'])
-    router.push('/login')
+    router.push('/')
     router.refresh()
 }
 
