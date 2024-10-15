@@ -12,9 +12,21 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import MedicationIcon from '@mui/icons-material/Medication';
 import PaymentIcon from '@mui/icons-material/Payment';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import LockResetIcon from '@mui/icons-material/LockReset';
 
 export const drawerItems = (role: UserRole | '') => {
-    const roleMenu: DrawerItem[] = [];
+    const roleMenu: DrawerItem[] = [
+        {
+            title: "Change Password",
+            path: `change-password`,
+            icon: LockResetIcon
+        },
+        {
+            title: "Profile",
+            path: `${role}/profile`,
+            icon: AccountBoxIcon
+        },
+    ];
 
     switch (role) {
         case user_role.SUPER_ADMIN:
@@ -76,11 +88,6 @@ export const drawerItems = (role: UserRole | '') => {
                     title: "Schedule",
                     path: `${role}/schedule`,
                     icon: CalendarMonthIcon
-                },
-                {
-                    title: "Profile",
-                    path: `${role}/profile`,
-                    icon: AccountBoxIcon
                 },
                 {
                     title: "Appointments",

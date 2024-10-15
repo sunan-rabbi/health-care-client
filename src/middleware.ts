@@ -62,5 +62,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/dashboard/:path*', 'login', 'register'], // Match all routes under /dashboard
+    matcher: ['/dashboard/:path*', '/login', '/register'], // Match all routes under /dashboard
 };
