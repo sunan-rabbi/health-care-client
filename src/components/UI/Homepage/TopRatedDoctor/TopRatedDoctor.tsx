@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardActions, CardContent, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Link from "next/link";
 
 const TopRatedDoctor = async () => {
     const res = await fetch('http://localhost:5000/api/v1/doctor?page=1&limit=3', {
@@ -73,16 +74,19 @@ const TopRatedDoctor = async () => {
                         ))
                     }
                 </Grid>
-                <Box textAlign="center">
-                    <Button
-                        variant="outlined"
-                        sx={{
-                            marginTop: "20px",
-                        }}
-                    >
-                        View ALL
-                    </Button>
-                </Box>
+                <Link href='/doctors'>
+                    <Box textAlign="center" >
+                        <Button
+                            variant="outlined"
+                            sx={{
+                                marginTop: "20px",
+                            }}
+                        >
+                            View ALL
+                        </Button>
+                    </Box>
+                </Link>
+
             </Container>
 
         </Box>

@@ -105,7 +105,7 @@ const LoginPage = () => {
                             <Button type="submit" sx={{ margin: '5px 0px 15px 0px' }} fullWidth={true}>LOG IN</Button>
                         </ReUseForm>
                         <Typography component='p' textAlign='center'>
-                            Don't have an account? <Link href='/register' className="text-blue-500">Create an account</Link>
+                            Don't have an account? <Link href='/register'><Typography component='p' sx={{ color: "#0096FF" }}>Create an account</Typography></Link>
                         </Typography>
                     </Box>
                 </Box>

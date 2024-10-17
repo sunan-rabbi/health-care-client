@@ -12,6 +12,9 @@ interface Review {
 interface DoctorSpecialty {
     specialtiesId: string;
     doctorId: string;
+    specialties: {
+        title: string
+    }
 }
 
 export interface IDoctor {

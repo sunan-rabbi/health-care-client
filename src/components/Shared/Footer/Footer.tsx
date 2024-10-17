@@ -33,7 +33,11 @@ const Footer = () => {
                     <Image src={linkedinIcon} alt="facebook" width={30} height={30} />
                     <Image src={twitterIcon} alt="facebook" width={30} height={30} />
                 </Stack>
-                <div className="border-b-[1px] border-dashed"></div>
+                <Box sx={{
+                    borderBottom: '2px dashed',
+                    borderColor: 'secondary.light',
+                    my: 4
+                }}></Box>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" gap={4} py={3}>
                     <Typography component='p' color='white'>
                         &copy;2024 HealthCare. All Rights Reserved.

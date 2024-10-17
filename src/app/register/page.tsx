@@ -154,7 +154,7 @@ const RegisterPage = () => {
                             <Button sx={{ margin: '15px 0px' }} fullWidth={true} type="submit">REGISTER</Button>
                         </ReUseForm>
                         <Typography component='p' textAlign='center'>
-                            Do you already have an account? <Link href='/login' className="text-blue-500">Login</Link>
+                            Don't have an account? <Link href='/register'><Typography component='p' sx={{ color: "#0096FF" }}>Create an account</Typography></Link>
                         </Typography>
                     </Box>
                 </Box>
