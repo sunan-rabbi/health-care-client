@@ -1,6 +1,6 @@
 "use client"
 import assets from "@/assets";
-import { Alert, Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -8,10 +8,8 @@ import ReUseForm from "@/components/Shared/Form/ReForm";
 import ReUseInput from "@/components/Shared/Form/ReInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import logoutUser from "@/Service/actions/logOut";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useForgetPasswordMutation, useResetPasswordMutation } from "@/Redux/api/authApi";
-import CheckIcon from '@mui/icons-material/Check';
+import { useRouter, useSearchParams } from "next/navigation";
+import { useResetPasswordMutation } from "@/Redux/api/authApi";
 
 
 const resetValidationSchema = z.object({

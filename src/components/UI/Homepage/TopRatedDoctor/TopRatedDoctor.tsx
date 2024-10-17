@@ -35,7 +35,18 @@ const TopRatedDoctor = async () => {
                         doctors && doctors.map((doctor: any) => (
                             <Grid item key={doctor.id} md={4}>
                                 <Card sx={{ maxWidth: 345 }}>
-                                    <Box>
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                            height: 300,
+                                            "& img": {
+                                                width: '100%',
+                                                height: '100%',
+                                                overflow: 'hidden',
+                                                objectFit: "cover"
+                                            }
+                                        }}
+                                    >
                                         <Image src={doctor.profilePhoto} alt="doctor" width={500} height={100} />
                                     </Box>
                                     <CardContent>

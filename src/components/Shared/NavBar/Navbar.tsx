@@ -1,12 +1,20 @@
 "use client"
+import { getUserInfo } from "@/Service/actions/authservice";
+import { JwtDecodedData } from "@/type";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
 
     const AuthButton = dynamic(() => import('@/components/UI/Button/AuthButton'), { ssr: false })
+    const [userInfo, setUserInfo] = useState<JwtDecodedData | null>(null);
 
+    useEffect(() => {
+        const userData = getUserInfo() as JwtDecodedData;
+        setUserInfo(userData);
+    }, [])
     return (
         <Container>
             <Stack py={2} direction="row" justifyContent="space-between" alignItems="center">
@@ -14,21 +22,26 @@ const Navbar = () => {
                     <Box component='span' color='primary.main'>H</Box>ealth Care
                 </Typography>
                 <Stack direction="row" justifyContent="space-between" gap={4}>
-                    <Typography component={Link} href="/consultation" >
+                    <Typography >
                         Consultation
                     </Typography>
-                    <Typography component={Link} href="/healthplan" >
+                    <Typography >
                         Health Plans
                     </Typography>
-                    <Typography component={Link} href="/medicine" >
+                    <Typography >
                         Medicine
                     </Typography>
-                    <Typography component={Link} href="/diagnostics" >
+                    <Typography >
                         Diagnostics
                     </Typography>
-                    <Typography component={Link} href="/ngos" >
+                    <Typography >
                         NGOs
                     </Typography>
+                    {
+                        (userInfo && userInfo?.userId) && <Typography component={Link} href='/dashboard'>
+                            Dashboard
+                        </Typography>
+                    }
                 </Stack>
                 <AuthButton />
             </Stack>
