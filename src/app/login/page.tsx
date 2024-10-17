@@ -97,9 +97,11 @@ const LoginPage = () => {
                                     />
                                 </Grid>
                             </Grid>
-                            <Typography textAlign='end' my={1}>
-                                Forgot Password?
-                            </Typography>
+                            <Link href='/forget-password'>
+                                <Typography textAlign='end' my={1}>
+                                    Forgot Password?
+                                </Typography>
+                            </Link>
                             <Button type="submit" sx={{ margin: '5px 0px 15px 0px' }} fullWidth={true}>LOG IN</Button>
                         </ReUseForm>
                         <Typography component='p' textAlign='center'>

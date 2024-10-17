@@ -9,6 +9,8 @@ import ReUseInput from "@/components/Shared/Form/ReInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useChangePasswordMutation } from "@/Redux/api/authApi";
+import logoutUser from "@/Service/actions/logOut";
+import { useRouter } from "next/navigation";
 
 
 const loginValidationSchema = z.object({
@@ -22,6 +24,7 @@ const defaultValues = {
 }
 
 const ChangePasswordPage = () => {
+    const router = useRouter()
 
     const [changePassword] = useChangePasswordMutation()
 
@@ -33,6 +36,7 @@ const ChangePasswordPage = () => {
 
             if (response.success) {
                 toast.success(response.message, { id: loadingId })
+                logoutUser(router)
             }
             else {
                 toast.error(response.message)
