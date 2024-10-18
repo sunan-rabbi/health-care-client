@@ -1,6 +1,6 @@
 import { tagTypes } from "../tag-type";
 import { baseApi } from "./baseApi";
-import { Tmeta } from '@/type'
+import { IDoctorSchedule, Tmeta } from '@/type'
 
 const doctorScheduleApi = baseApi.injectEndpoints({
 
@@ -13,6 +13,22 @@ const doctorScheduleApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.doctorSchedule]
         }),
+
+        getAllDoctorSchedule: build.query({
+            query: (args: Record<string, any>) => ({
+                url: '/doctor-schedule',
+                params: args,
+                method: 'GET'
+            }),
+            transformResponse: (response: IDoctorSchedule[], meta: Tmeta) => {
+                return {
+                    data: response,
+                    meta
+                }
+            },
+            providesTags: [tagTypes.doctorSchedule]
+        }),
+
         getMyDoctorSchedule: build.query({
             query: (arg: Record<string, any>) => ({
                 url: '/doctor-schedule/my-schedules',
@@ -39,4 +55,4 @@ const doctorScheduleApi = baseApi.injectEndpoints({
     })
 })
 
-export const { useCreateDoctorScheduleMutation, useGetMyDoctorScheduleQuery, useDeleteDoctorScheduleMutation } = doctorScheduleApi
+export const { useCreateDoctorScheduleMutation, useGetMyDoctorScheduleQuery, useDeleteDoctorScheduleMutation, useGetAllDoctorScheduleQuery } = doctorScheduleApi

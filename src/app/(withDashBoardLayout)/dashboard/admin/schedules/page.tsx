@@ -17,6 +17,7 @@ const schedulesPage = () => {
     const [deleteSchedule] = useDeleteScheduleMutation()
 
     const handleDelete = async (id: string) => {
+
         try {
             const res = await deleteSchedule(id).unwrap()
             if (res.success) {

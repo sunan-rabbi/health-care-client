@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
+import DoctorScheduleSlots from '../Component/DoctorScheduleSlots';
 
 interface PropType {
     params: { id: string };
@@ -166,6 +167,7 @@ const SingleDoctorPage = async ({ params }: PropType) => {
                     </Stack>
                 </Box>
             </Box>
+            <DoctorScheduleSlots id={doctor?.id} />
         </Container>
     );
 };
