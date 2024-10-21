@@ -16,7 +16,6 @@ const scheduleApi = baseApi.injectEndpoints({
 
         getAllSchedule: build.query({
             query: (arg: Record<string, any>) => {
-                console.log(arg);
 
                 return {
                     url: '/schedule',

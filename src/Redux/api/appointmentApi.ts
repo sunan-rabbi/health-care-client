@@ -1,6 +1,6 @@
 import { tagTypes } from "@/Redux/tag-type";
 import { baseApi } from "./baseApi";
-import { Tmeta } from "@/type";
+import { IAppointment, Tmeta } from "@/type";
 
 const appointmentApi = baseApi.injectEndpoints({
 
@@ -19,7 +19,7 @@ const appointmentApi = baseApi.injectEndpoints({
                 method: 'GET',
                 params: arg
             }),
-            transformErrorResponse: (response: [], meta: Tmeta) => {
+            transformErrorResponse: (response: IAppointment[], meta: Tmeta) => {
                 return {
                     appointments: response,
                     meta: meta
@@ -34,7 +34,7 @@ const appointmentApi = baseApi.injectEndpoints({
                 method: 'GET',
                 params: arg
             }),
-            transformErrorResponse: (response: [], meta: Tmeta) => {
+            transformErrorResponse: (response: IAppointment[], meta: Tmeta) => {
                 return {
                     appointments: response,
                     meta: meta

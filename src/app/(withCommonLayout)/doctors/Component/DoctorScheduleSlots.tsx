@@ -1,6 +1,7 @@
 'use client';
 import { useCreateAppointmentMutation } from '@/Redux/api/appointmentApi';
 import { useGetAllDoctorScheduleQuery } from '@/Redux/api/doctorScheduleApi';
+import { useCreatePaymentMutation } from '@/Redux/api/paymentApi';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -76,15 +77,19 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
     }))
 
     const [createAppointment] = useCreateAppointmentMutation()
+    const [createPayment] = useCreatePaymentMutation()
 
     const handleBookAppointment = async () => {
         const loadingID = toast.loading('creating Appointment....')
         try {
 
             const res = await createAppointment({ doctorId: id, scheduleId }).unwrap()
-            console.log(res);
-            if (res) {
-                toast.success("Appointment is booked successfully", { id: loadingID })
+
+            if (res?.id) {
+                const payment = await createPayment(res.id).unwrap()
+                if (payment.paymentUrl) {
+                    router.push(payment.paymentUrl)
+                }
             } else {
                 toast.error("Booking is failed", { id: loadingID })
             }
