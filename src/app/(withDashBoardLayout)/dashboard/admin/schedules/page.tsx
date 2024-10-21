@@ -8,10 +8,28 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from "sonner";
 import { ISchedules } from "@/type";
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 const schedulesPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const { isLoading, isFetching, data } = useGetAllScheduleQuery({})
+    const query: Record<string, any> = {}
+    query['startDate'] = dayjs(new Date())
+        .utc()
+        .hour(0)
+        .minute(0)
+        .second(0)
+        .millisecond(0)
+        .toISOString();
+    query['endDate'] = dayjs(new Date())
+        .utc()
+        .hour(23)
+        .minute(59)
+        .second(59)
+        .millisecond(0)
+        .toISOString();
+
+    const { isLoading, isFetching, data } = useGetAllScheduleQuery({ ...query })
     const schedules = data?.schedules as ISchedules[]
 
     const [deleteSchedule] = useDeleteScheduleMutation()
@@ -33,9 +51,10 @@ const schedulesPage = () => {
         id: schedule.id,
         startDate: dayjs(schedule.startDate).format('YYYY-MM-DD'),
         endDate: dayjs(schedule.endDate).format('YYYY-MM-DD'),
-        startTime: dayjs(schedule.startDate).format('HH:mm A'),
-        endTime: dayjs(schedule.endDate).format('HH:mm A'),
-    }))
+        startTime: dayjs(schedule.startDate).format('hh:mm A'),
+        endTime: dayjs(schedule.endDate).format('hh:mm A'),
+    }
+    ))
 
     const columns: GridColDef[] = [
         { field: 'startDate', headerName: 'Start Date', flex: 1 },

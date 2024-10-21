@@ -15,11 +15,15 @@ const scheduleApi = baseApi.injectEndpoints({
         }),
 
         getAllSchedule: build.query({
-            query: (arg: Record<string, any>) => ({
-                url: '/schedule',
-                method: 'GET',
-                params: arg
-            }),
+            query: (arg: Record<string, any>) => {
+                console.log(arg);
+
+                return {
+                    url: '/schedule',
+                    method: 'GET',
+                    params: arg
+                }
+            },
             transformResponse: (response: [], meta: Tmeta) => {
                 return {
                     schedules: response,

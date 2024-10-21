@@ -1,10 +1,12 @@
 'use client';
+import { useCreateAppointmentMutation } from '@/Redux/api/appointmentApi';
 import { useGetAllDoctorScheduleQuery } from '@/Redux/api/doctorScheduleApi';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 dayjs.extend(utc);
 
 const DoctorScheduleSlots = ({ id }: { id: string }) => {
@@ -36,7 +38,7 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
 
     const formatTodaySchedule = todaySchedule?.data.map((schedule) => ({
         scheduleId: schedule.scheduleId,
-        slot: `${dayjs(schedule.schedule.startDate).format('HH:mm A')} - ${dayjs(schedule.schedule.endDate).format('HH:mm A')}`
+        slot: `${dayjs(schedule.schedule.startDate).format('hh:mm A')} - ${dayjs(schedule.schedule.endDate).format('hh:mm A')}`
 
     }))
 
@@ -69,9 +71,31 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
 
     const formatTomorrowSchedule = tomorrowSchedule?.data.map((schedule) => ({
         scheduleId: schedule.scheduleId,
-        slot: `${dayjs(schedule.schedule.startDate).format('HH:mm A')} - ${dayjs(schedule.schedule.endDate).format('HH:mm A')}`
+        slot: `${dayjs(schedule.schedule.startDate).format('hh:mm A')} - ${dayjs(schedule.schedule.endDate).format('hh:mm A')}`
 
     }))
+
+    const [createAppointment] = useCreateAppointmentMutation()
+
+    const handleBookAppointment = async () => {
+        const loadingID = toast.loading('creating Appointment....')
+        try {
+
+            const res = await createAppointment({ doctorId: id, scheduleId }).unwrap()
+            console.log(res);
+            if (res) {
+                toast.success("Appointment is booked successfully", { id: loadingID })
+            } else {
+                toast.error("Booking is failed", { id: loadingID })
+            }
+
+        } catch (error) {
+            console.log(error);
+            toast.error("Booking is failed", { id: loadingID })
+
+        }
+    }
+
 
     if (isLoadingToday || isLoadingTomorrow) {
         return <p>Loading...</p>
@@ -150,6 +174,7 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
 
             <Button
                 sx={{ display: 'block', mx: 'auto', my: 1 }}
+                onClick={handleBookAppointment}
             >
                 Book Appointment Now
             </Button>

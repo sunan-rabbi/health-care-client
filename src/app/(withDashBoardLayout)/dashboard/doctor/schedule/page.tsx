@@ -36,8 +36,8 @@ const DoctorSchedule = () => {
             const schedules = data?.data.map((schedule: any) => ({
                 id: schedule?.schedule?.id,
                 date: dayjs(schedule?.schedule?.startDate).format('YYYY-MM-DD'),
-                startTime: dayjs(schedule?.schedule?.startDate).format('HH:mm A'),
-                endTime: dayjs(schedule?.schedule?.endDate).format('HH:mm A'),
+                startTime: dayjs(schedule?.schedule?.startDate).format('hh:mm A'),
+                endTime: dayjs(schedule?.schedule?.endDate).format('hh:mm A'),
             }));
             setFormattedSchedules(schedules);
         }
