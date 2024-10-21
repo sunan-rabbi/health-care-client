@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useGetMyAppointmentQuery } from '@/Redux/api/appointmentApi';
 import { IAppointment } from '@/type';
 import dayjs from 'dayjs';
+import Chips from '@/components/Shared/Chip/Chip';
 
 
 const DoctorAppointmentsPage = () => {
@@ -60,6 +61,13 @@ const DoctorAppointmentsPage = () => {
             flex: 1,
             headerAlign: 'center',
             align: 'center',
+            renderCell: ({ row }) => {
+                return row.paymentStatus === 'PAID' ? (
+                    <Chips label={row.paymentStatus} type='success' />
+                ) : (
+                    <Chips label={row.paymentStatus} type='error' />
+                );
+            },
         },
         {
             field: 'action',
@@ -69,11 +77,18 @@ const DoctorAppointmentsPage = () => {
             align: 'center',
             renderCell: ({ row }) => {
                 return (
-                    <Link href={`/video?videoCallingId=${row?.videoCallingId}`}>
-                        <IconButton>
-                            <VideocamIcon />
-                        </IconButton>
-                    </Link>
+                    <IconButton
+                        component={Link}
+                        href={`/video?videoCallingId=${row?.videoCallingId}`}
+                        disabled={row.paymentStatus === 'UNPAID'}
+                    >
+                        <VideocamIcon
+                            sx={{
+                                color:
+                                    row.paymentStatus === 'PAID' ? 'primary.main' : '',
+                            }}
+                        />
+                    </IconButton>
                 );
             },
         },
