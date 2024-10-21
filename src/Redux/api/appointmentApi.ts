@@ -19,7 +19,7 @@ const appointmentApi = baseApi.injectEndpoints({
                 method: 'GET',
                 params: arg
             }),
-            transformErrorResponse: (response: IAppointment[], meta: Tmeta) => {
+            transformResponse: (response: IAppointment[], meta: Tmeta) => {
                 return {
                     appointments: response,
                     meta: meta
@@ -34,7 +34,7 @@ const appointmentApi = baseApi.injectEndpoints({
                 method: 'GET',
                 params: arg
             }),
-            transformErrorResponse: (response: IAppointment[], meta: Tmeta) => {
+            transformResponse: (response: IAppointment[], meta: Tmeta) => {
                 return {
                     appointments: response,
                     meta: meta

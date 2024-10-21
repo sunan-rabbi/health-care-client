@@ -1,8 +1,8 @@
 import { IDoctor } from "./doctor"
+import { IPatient } from "./patient";
 import { ISchedules } from "./schedules"
 
 export type IAppointment = {
-
     id: string;
     patientId: string;
     doctorId: string;
@@ -14,6 +14,6 @@ export type IAppointment = {
     createdAt: string;
     updatedAt: string;
     doctor: IDoctor,
-    schedule: ISchedules
-
+    schedule: ISchedules,
+    patient: IPatient
 }

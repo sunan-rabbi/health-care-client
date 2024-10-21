@@ -40,7 +40,7 @@ instance.interceptors.response.use(
             const accessToken = response?.data?.accessToken
             config.headers['Authorization'] = accessToken
             saveAccessToken({ accessToken: response?.data?.accessToken })
-            setAccessToken('accessToken')
+            setAccessToken(response?.data?.accessToken)
             return instance(config)
         } else {
             const responseObject = {

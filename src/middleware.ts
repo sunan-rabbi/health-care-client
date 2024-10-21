@@ -42,6 +42,8 @@ export function middleware(request: NextRequest) {
     }
 
     const role = (decodedValue as any)?.role;
+    console.log(decodedValue);
+
 
     // If no role found in the token, redirect to login
     if (!role) {
